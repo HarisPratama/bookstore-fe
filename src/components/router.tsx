@@ -40,7 +40,7 @@ const RouterPage = ({children}: LayoutProps) => {
                         </b>
                     </p>
                 </div>
-                <Link href='my-order'>My Order</Link>
+                <Link href='/my-order'>My Order</Link>
                 <button className="btn" onClick={logout}>Logout</button>
             </div>
             )}

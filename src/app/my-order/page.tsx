@@ -24,6 +24,20 @@ const MyOrders = () => {
         })()
     }, [token])
 
+    const fetchProfile = async () => {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", 'Bearer ' + token);
+
+        const req = await fetch(`${apiUrl}/auth/current-user`, {
+            headers: myHeaders
+        })
+
+        const resp = await req.json()
+        if (resp?.data) {
+            localStorage.setItem('user', JSON.stringify(resp.data))
+        }
+    }
+
     const fetchOrder = async () => {
         const myHeaders = new Headers();
         myHeaders.append("Authorization", 'Bearer ' + token);
@@ -36,14 +50,19 @@ const MyOrders = () => {
         setOrders(resp.data)
     }
 
-    const cancelOrder = async (id:number) => {
+    const cancelOrder = async (order: Order) => {
         setLoading(true)
         try {
             const myHeaders = new Headers();
             myHeaders.append("Authorization", 'Bearer ' + token);
-            const req = await fetch(`${apiUrl}/order/${id}`, {
+
+            const urlencoded = new URLSearchParams();
+            urlencoded.append("point", `${order.book.point}`);
+
+            const req = await fetch(`${apiUrl}/order/${order.id}`, {
                 headers: myHeaders,
-                method: 'DELETE'
+                method: 'DELETE',
+                body: urlencoded
             })
     
             const resp = await req.json()
@@ -51,6 +70,7 @@ const MyOrders = () => {
             if (resp?.status === 'success') {
                 toast('Order successful, thank you for ordering')
                 await fetchOrder()
+                await fetchProfile()
             } else {
                 toast('Oops somethings wrong, try again later')
             }
@@ -71,7 +91,7 @@ const MyOrders = () => {
                             <p>{order.book.title}</p>
                             <p>{order.book.point}</p>
                             {order.status == 'in-progress' && 
-                                <button disabled={loading} className='btn-cancel' onClick={() => cancelOrder(order.id)}>{loading ? 'Loading...' : 'Cancel Order'}</button>
+                                <button disabled={loading} className='btn-cancel' onClick={() => cancelOrder(order)}>{loading ? 'Loading...' : 'Cancel Order'}</button>
                             }
                         </div>
                         <div className='bagde-status' style={{ background: order.status == 'in-progress' ? '#3498db' : order.status == 'success' ? '#2ecc71' : '#e74c3c' }}>
