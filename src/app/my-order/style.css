@@ -1,0 +1,19 @@
+.card {
+    padding: 10px;
+    border: 1px solid #34495e;
+    border-radius: 11px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bagde-status {
+    color: #ffff;
+    padding: 5px;
+    border-radius: 11px;
+}
+
+.btn-cancel {
+    color: #e74c3c;
+}

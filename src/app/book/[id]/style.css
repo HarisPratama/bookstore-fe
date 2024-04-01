@@ -1,0 +1,20 @@
+.container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-order {
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background: #f1c40f;
+    width: 200px;
+    border-radius: 11px;
+    font-size: 24px;
+}

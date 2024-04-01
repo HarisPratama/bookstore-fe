@@ -1,0 +1,14 @@
+.nav {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: end;
+    padding: 20px;
+}
+
+.btn {
+    width: 100px;
+    height: 50px;
+    border: 1px solid #c0392b;
+    color: #c0392b;
+}
